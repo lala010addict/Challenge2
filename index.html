@@ -11,6 +11,20 @@
     <form>
       <input type="text" ng-model="searchTerm" />
     </form>
+    <div class="row">
+      <table ng-table="tableParams" class="table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td ng-repeat="x in results" width="25%">
+            <div class="item">
+              <img ng-src="{{x.product.photo || ''}}">
+              <div class="text">
+                <h3>{{x.product.name}}</h3>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js"></script>
   <script src="app/app.controller.js"></script>

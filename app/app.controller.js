@@ -1,10 +1,9 @@
-var supplyhub = angular.module('supplyhub', []);
+var supplyhub = angular.module('supplyhub', ["ngTable"]);
 
-supplyhub.controller('MainController', ['$scope', '$http', function($scope, $http) {
+supplyhub.controller('MainController', ['$scope', '$http', 'ngTableParams', function($scope, $http, ngTableParams) {
   var url = "http://api.vip.supplyhub.com:19000/products";
   $scope.searchTerm = '';
   $scope.results = '';
-
 
   $scope.getResults = function(searchTerm) {
     $http.get(url + '?search=' + searchTerm)
@@ -17,6 +16,8 @@ supplyhub.controller('MainController', ['$scope', '$http', function($scope, $htt
       });
   };
 
-
+  $scope.tableParams = new ngTableParams({}, {
+    dataset: $scope.results
+  });
 
 }]);
