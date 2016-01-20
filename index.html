@@ -4,17 +4,35 @@
 <head>
   <meta charset="utf-8" />
   <title>SupplyHub</title>
+  <link rel="stylesheet" type="text/css" href="app/app.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-table/0.8.3/ng-table.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
 </head>
 
 <body>
   <div ng-controller="MainController">
-    <form>
-      <input type="text" ng-model="searchTerm" />
-    </form>
-    <div class="row">
+    <nav class="navbar navbar-default" style="
+    height: 80px;">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">
+            <img alt="Brand" src="http://signup.supplyhub.com/assets/images/logo.svg">
+          </a>
+        </div>
+        <form class="navbar-form navbar-left" role="search">
+          <div class="form-group">
+            <input type="text" ng-model="searchTerm" />
+          </div>
+          <button type="submit" class="btn btn-default" ng-click="getResults(searchTerm)">Submit</button>
+        </form>
+      </div>
+    </nav>
+    <div class="row" ng-hide='results[0].product === undefined'>
+      <div>
+        <h3>{{results.length}} results for "{{lastSearchTerm}}" </h3></div>
       <table ng-table="tableParams" class="table" width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr>
-          <td ng-repeat="x in results" width="25%">
+          <td ng-repeat="x in filteredResults" width="25%">
             <div class="item">
               <img ng-src="{{x.product.photo || ''}}">
               <div class="text">
@@ -24,9 +42,13 @@
           </td>
         </tr>
       </table>
+      <pagination ng-hide='results.length < 11' ng-model="currentPage" total-items="results.length" max-size="maxSize" boundary-links="true">
+      </pagination>
     </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-table/0.8.3/ng-table.min.js"></script>
+  <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.1.min.js"></script>
   <script src="app/app.controller.js"></script>
 </body>
 
